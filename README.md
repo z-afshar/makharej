@@ -1,2 +1,2 @@
 # makharej
- Simple INcome & Expense system
+ Simple Income & Expense system
