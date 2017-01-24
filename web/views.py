@@ -23,3 +23,22 @@ def submit_expense(request):
     return JsonResponse({
         'status': 'ok',
     }, encoder=JSONEncoder)
+
+
+@csrf_exempt
+def submit_income(request):
+    """user submits an income"""
+
+    #TODO; validate data. user & token & amount might be fake
+    this_token = request.POST.get('token','1234')
+    this_user = User.objects.filter(token__token = this_token).get()
+    if 'date' not in request.POST:
+        date = datetime.now()
+    Income.objects.create(user = this_user, amount = request.POST['amount'],
+        text = request.POST['text'], date=date)
+    print "I'm in submit income"
+    print request.POST
+
+    return JsonResponse({
+        'status': 'ok',
+    }, encoder=JSONEncoder)
