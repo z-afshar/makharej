@@ -27,6 +27,19 @@ def index(request):
     context = {}
     return render(request, 'index.html',context)
 
+@csrf_exempt
+def generalstat(request):
+    #TODO: should get a valid duration
+    #TODO: is token valid
+    this_token = request.POST['token']
+    this_user = User.objects.filter(token__token = this_token).get()
+    income = Income.objects.filter(user = this_user).aggregate(Count('amount'),Sum('amount'))
+    expense = Expense.objects.filter(user = this_user).aggregate(Count('amount'),Sum('amount'))
+    context = {}
+    context['expense'] = expense
+    context['income'] = income
+    return JsonResponse( context, encoder=JSONEncoder)
+
 
 #register (web)
 def register(request):
