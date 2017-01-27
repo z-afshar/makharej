@@ -8,6 +8,12 @@
     input: date(optional), text,amount,user
     output: status:ok
 
+
+/accounts/login/
+  POST, returns a json
+  input: username,password
+  output: status:ok & token
+
 /accounts/register/
   step1:
     POST

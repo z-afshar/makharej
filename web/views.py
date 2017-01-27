@@ -40,6 +40,23 @@ def generalstat(request):
     context['income'] = income
     return JsonResponse( context, encoder=JSONEncoder)
 
+@csrf_exempt
+def login(request):
+    if request.POST.has_key('username') and request.POST.has_key('password'):
+        username = request.POST['username']
+        password = request.POST['password']
+        this_user = User.objects.get(username = username)
+        if (check_password(password, this_user.password)):
+            this_token = Token.objects.get(user = this_user)
+            context = {}
+            context['result'] = 'ok'
+            context['token'] = this_token.token
+            return JsonResponse( context, encoder=JSONEncoder)
+        else:
+            context = {}
+            context['result'] = 'error'
+            return JsonResponse( context, encoder=JSONEncoder)
+
 
 #register (web)
 def register(request):
