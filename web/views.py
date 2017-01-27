@@ -49,12 +49,12 @@ def login(request):
         if (check_password(password, this_user.password)):
             this_token = Token.objects.get(user = this_user)
             context = {}
-            context['result'] = 'ok'
+            context['status'] = 'ok'
             context['token'] = this_token.token
             return JsonResponse( context, encoder=JSONEncoder)
         else:
             context = {}
-            context['result'] = 'error'
+            context['status'] = 'error'
             return JsonResponse( context, encoder=JSONEncoder)
 
 

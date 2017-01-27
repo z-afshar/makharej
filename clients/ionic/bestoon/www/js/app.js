@@ -69,6 +69,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
+    .state('tab.config', {
+      url: '/config',
+      views: {
+        'tab-config': {
+          templateUrl: 'templates/tab-config.html',
+          controller: 'ConfigCtrl'
+        }
+      }
+    })
+
   .state('tab.income', {
     url: '/income',
     views: {
@@ -83,3 +93,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   $urlRouterProvider.otherwise('/tab/dash');
 
 });
+
+var token = null;
+var storage = window.localStorage;
+
+baseURL = storage.getItem('bestoonURL')
+if (!baseURL) {
+  var baseURL = 'http://localhost:8008';
+  storage.setItem('bestoonURL','http://localhost:8008')
+}
