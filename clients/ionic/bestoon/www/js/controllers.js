@@ -1,24 +1,35 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope, $http) {
-  $scope.$on('$ionicView.enter', function(e) { //refresh this page when expense or income added
+.controller('DashCtrl', function($scope, $http, $state) {
 
-      $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
-      $http.post(
-        baseURL+'/q/generalstat/',
-        'token='+token
-      )
-      .success(function(data){
-        $scope.generalstat = data;
-      })
-      .error(function() {
-        $scope.message = 'error reading from bestoon stats' // TODO: show some error to user
-        console.log('error on request')
-      })
-  });
+      $scope.$on('$ionicView.enter', function(e) { //refresh this page when expense or income added
+        if (!token) {
+          console.log('whyy?:'+token)
+          back_to_login_page($scope, $state);
+        }
+        console.log('why?:'+token)
+        $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
+        $http.post(
+          baseURL+'/q/generalstat/',
+          'token='+token
+        )
+        .success(function(data){
+          $scope.generalstat = data;
+        })
+        .error(function() {
+          $scope.message = 'error reading from bestoon stats' // TODO: show some error to user
+          console.log('error on request')
+        })
+  })
 })
 
-.controller('ExpenseCtrl', function($scope, $http) {
+.controller('ExpenseCtrl', function($scope, $http, $state) {
+
+  $scope.$on('$ionicView.enter', function(e) {
+    if (!token) {
+      back_to_login_page($scope, $state);
+    }
+  })
 
   $scope.submit = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
@@ -93,7 +104,13 @@ angular.module('starter.controllers', [])
   }
 })
 
-.controller('IncomeCtrl', function($scope,$http) {
+.controller('IncomeCtrl', function($scope,$http,$state) {
+
+  $scope.$on('$ionicView.enter', function(e) {
+    if (!token) {
+      back_to_login_page($scope, $state);
+    }
+  })
 
   $scope.submit = function() {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';

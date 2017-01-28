@@ -1,1 +1,11 @@
 /* Empty. Add your own CSS if you like */
+
+@font-face {
+  font-family: "Vazir";
+  src: url(../img/Vazir-Code.woff);
+}
+
+ion-content {
+  direction:rtl;
+  font-family: "Vazir";
+}

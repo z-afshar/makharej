@@ -94,8 +94,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 });
 
-var token = null;
+function back_to_login_page($scope,$state) {
+  token = null;
+  $scope.loggedin = false;
+  storage.removeItem('token');
+  $state.go('tab.config');
+}
+
 var storage = window.localStorage;
+var token = storage.getItem('token')
 
 baseURL = storage.getItem('bestoonURL')
 if (!baseURL) {

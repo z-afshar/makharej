@@ -1,6 +1,6 @@
 <ion-view view-title="تنظیمات">
+  <ion-content>
 
-    <ion-content>
       <div class="card" ng-hide="{{loggedin}}">
         <div class="item item-text-wrap">
           برای دریافت نام کاربری و رمز عبور به
@@ -24,9 +24,9 @@
           ورود
         </button>
       </form>
-<hr>
-    <button class="button button-assertive" ng-click="logout()" ng-controller="ConfigCtrl" ng-show="{{loggedin}}">
+      <button class="button button-assertive" ng-click="logout()" ng-controller="ConfigCtrl" ng-show="{{loggedin}}">
       خروج
     </button>
+
   </ion-content>
 </ion-view>
